@@ -1,0 +1,15 @@
+﻿  Iplib.c
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\iplib.c(82): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\iplib.c(43): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\iplib.c(214): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\iplib.c(203): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\iplib.c(287): warning C4244: '=': 'float'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\iplib.c(249): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\iplib.c(308): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
+  List2_1.c
+d:\대학교 파일\4학년 1학기\영상처리\과제\과제-3\srsc\list2_1.c(12): fatal error C1083: 포함 파일을 열 수 없습니다. 'lplib.c': No such file or directory
+  코드를 생성하고 있습니다...
