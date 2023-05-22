@@ -477,3 +477,91 @@ void biInterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_
 	}
 	fclose(fp);
 }
+
+
+float cubicConvWeight(float x) {
+	float absX = abs(x);
+	float absX2 = absX * absX;
+	float absX3 = absX2 * absX;
+
+	float a = -1;
+
+	if (0<=absX && absX < 1) {
+		return a * absX3 - (a+3) * absX2 + 1;
+	}
+	else if (1<=absX && absX < 2) {
+		return a * absX3 - (5 * a) * absX2 + (8 * a) * absX - 4 * a;
+	}
+	else if (2 <= absX) {
+		return 0;
+	}
+}
+
+void CCinterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_scale, int y_scale, int type) {
+	unsigned long x, y;
+	unsigned long index;
+	unsigned long source_index;
+	unsigned char* line_buff;
+	unsigned line;
+	int new_rows, new_cols;
+	FILE* fp;
+	unsigned long X_Source, Y_Source;
+	pixel_ptr color_buff;
+
+	if ((fp = fopen(fileout, "wb")) == NULL) {
+		printf("Unable to open %s for output\n", fileout);
+		exit(1);
+	}
+
+	new_cols = cols * x_scale;
+	new_rows = rows * y_scale;
+
+	fprintf(fp, "P%d\n%d %d\n255\n", type, new_cols, new_rows);
+
+	if (type == 5)
+		line = new_cols;
+	else {
+		line = new_cols * 3;
+		color_buff = (pixel_ptr)buffer;
+	}
+
+	line_buff = (unsigned char*)malloc(line);
+
+	for (y = 0; y < new_rows; y++) {
+		index = 0;
+		for (x = 0; x < new_cols; x++) {
+			float pixel = 0.0;
+			float weightSum = 0.0;
+
+			int X_Source = (int)(x / (float)x_scale);
+			int Y_Source = (int)(y / (float)y_scale);
+
+			for (int i = -1; i <= 2; i++) {
+				for (int j = -1; j <= 2; j++) {
+					int currX = X_Source + j;
+					int currY = Y_Source + i;
+
+					if (currX >= 0 && currX < cols && currY >= 0 && currY < rows) {
+						float weight = cubicConvWeight((x / (float)x_scale) - currX) * cubicConvWeight((y / (float)y_scale) - currY);
+						pixel += buffer[currY * cols + currX] * weight;
+						weightSum += weight;
+					}
+				}
+			}
+
+			pixel /= weightSum;
+
+			source_index = Y_Source * cols + X_Source;
+
+			if (type == 5)
+				line_buff[index++] = (unsigned char)pixel;
+			else {
+				line_buff[index++] = color_buff[source_index].r;
+				line_buff[index++] = color_buff[source_index].g;
+				line_buff[index++] = color_buff[source_index].b;
+			}
+		}
+		fwrite(line_buff, 1, line, fp);
+	}
+	fclose(fp);
+}

@@ -61,7 +61,9 @@ int main(int argc, char *argv[])
 
 	//NNinterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
 
-	biInterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
+	//biInterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
+
+	CCinterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
 
     //write_pnm(buffer, fileout, rows, cols, type);
     IP_FREE(buffer);
