@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ip.h"
+#include "math.h"
 
 image_ptr read_pnm(char *filename, int *rows, int *cols, int *type);
 int getnum(FILE *fp);
@@ -486,13 +487,13 @@ float cubicConvWeight(float x) {
 
 	float a = -1;
 
-	if (0<=absX && absX < 1) {
-		return a * absX3 - (a+3) * absX2 + 1;
+	if (0 <= absX && absX < 1) {
+		return (((a + 2) * absX3) - ((a + 3) * absX2) + 1);
 	}
-	else if (1<=absX && absX < 2) {
-		return a * absX3 - (5 * a) * absX2 + (8 * a) * absX - 4 * a;
+	else if (1 <= absX && absX < 2) {
+		return ((a * absX3) - ((5 * a) * absX2) + ((8 * a) * absX) - (4 * a));
 	}
-	else if (2 <= absX) {
+	else if(2 <= absX ) {
 		return 0;
 	}
 }
@@ -502,10 +503,9 @@ void CCinterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_
 	unsigned long index;
 	unsigned long source_index;
 	unsigned char* line_buff;
-	unsigned line;
+	unsigned long line;
 	int new_rows, new_cols;
 	FILE* fp;
-	unsigned long X_Source, Y_Source;
 	pixel_ptr color_buff;
 
 	if ((fp = fopen(fileout, "wb")) == NULL) {
@@ -533,16 +533,19 @@ void CCinterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_
 			float pixel = 0.0;
 			float weightSum = 0.0;
 
-			int X_Source = (int)(x / (float)x_scale);
-			int Y_Source = (int)(y / (float)y_scale);
+			float X_Source = x / (float)x_scale;
+			float Y_Source = y / (float)y_scale;
 
-			for (int i = -1; i <= 2; i++) {
-				for (int j = -1; j <= 2; j++) {
-					int currX = X_Source + j;
-					int currY = Y_Source + i;
+			int X_Source_int = (int)floor(X_Source);
+			int Y_Source_int = (int)floor(Y_Source);
+
+			for (int i = -2; i <= 1; i++) {
+				for (int j = -2; j <= 1; j++) {
+					int currX = X_Source_int + j;
+					int currY = Y_Source_int + i;
 
 					if (currX >= 0 && currX < cols && currY >= 0 && currY < rows) {
-						float weight = cubicConvWeight((x / (float)x_scale) - currX) * cubicConvWeight((y / (float)y_scale) - currY);
+						float weight = cubicConvWeight(X_Source - currX) * cubicConvWeight(Y_Source - currY);
 						pixel += buffer[currY * cols + currX] * weight;
 						weightSum += weight;
 					}
@@ -551,7 +554,7 @@ void CCinterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_
 
 			pixel /= weightSum;
 
-			source_index = Y_Source * cols + X_Source;
+			source_index = Y_Source_int * cols + X_Source_int;
 
 			if (type == 5)
 				line_buff[index++] = (unsigned char)pixel;

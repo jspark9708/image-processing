@@ -56,8 +56,8 @@ int main(int argc, char *argv[])
 
     number_of_pixels = bytes_per_pixel * rows * cols;
 
-	x_scale = 4;
-	y_scale = 4;
+	x_scale = 2;
+	y_scale = 2;
 
 	//NNinterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
 

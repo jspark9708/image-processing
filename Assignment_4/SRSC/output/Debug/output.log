@@ -1,43 +1,30 @@
 ﻿  Iplib.c
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(82): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(43): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(83): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(44): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(214): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(203): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(215): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(204): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(287): warning C4244: '=': 'float'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(249): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(288): warning C4244: '=': 'float'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(250): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(308): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(309): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(383): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(386): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(360): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(384): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(387): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(361): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(440): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(443): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(418): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(441): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(444): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(419): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(414): warning C4101: 'X_Source' :참조되지 않은 지역 변수입니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(414): warning C4101: 'Y_Source' :참조되지 않은 지역 변수입니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(483): warning C4244: '함수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(483): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(415): warning C4101: 'X_Source' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(415): warning C4101: 'Y_Source' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(484): warning C4244: '함수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(484): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(530): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(532): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(511): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(508): warning C4101: 'X_Source' :참조되지 않은 지역 변수입니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(508): warning C4101: 'Y_Source' :참조되지 않은 지역 변수입니다.
-  List2_1.c
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\list2_1.c(43): warning C4013: 'gets'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\list2_1.c(66): warning C4013: 'CCinterpolation'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\list2_1.c(37): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(133): note: 'strcpy' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\list2_1.c(38): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(133): note: 'strcpy' 선언을 참조하십시오.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\list2_1.c(27): warning C4101: 'LUT' :참조되지 않은 지역 변수입니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\list2_1.c(25): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\list2_1.c(30): warning C4101: 'temp' :참조되지 않은 지역 변수입니다.
-  코드를 생성하고 있습니다...
-d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(498): warning C4715: 'cubicConvWeight': 모든 제어 경로에서 값을 반환하지는 않습니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\assignment_4\srsc\iplib.c(499): warning C4715: 'cubicConvWeight': 모든 제어 경로에서 값을 반환하지는 않습니다.
   output.vcxproj -> D:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_code\image-processing\Assignment_4\SRSC\Debug\output.exe
