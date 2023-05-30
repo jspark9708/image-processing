@@ -403,46 +403,48 @@ void NNinterpolation(image_ptr buffer, char *fileout,
 	fclose(fp);
 }
 
+/* BiLinear Interpolation 함수 */
 void biInterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_scale, int y_scale, int type)
 {
-	unsigned long x, y;          /* loop indices for columns and rows */
-	unsigned long index;        /* index into line buffer */
-	unsigned long source_index; /* address of source pixel in image buffer */
-	unsigned char* line_buff;   /* output line buffer */
-	unsigned line;              /* number of pixels in one scan line */
-	int new_rows, new_cols;     /* values of rows and columns for new image */
-	FILE* fp;                   /* output file pointer */
-	unsigned long X_Source, Y_Source; /* x and y address of source pixel */
-	pixel_ptr color_buff;       /* pointer to a color image in memory */
+	unsigned long x, y;          /* 행열을 위한 인덱스 */
+	unsigned long index;        /* buffer에 사용될 인덱스 */
+	unsigned long source_index; /* 이미지 버퍼 소스 픽셀의 인덱스 */
+	unsigned char* line_buff;   /* 라인 버퍼의 output */
+	unsigned line;              /* 하나의 줄에 존재하는 픽셀수 */
+	int scale_rows, scale_cols;     /* scale된 후의 rows, cols */
+	FILE* fp;                   /* 출력파일 */
+	unsigned long X_Source, Y_Source; /* 원본 픽셀의 좌표 */
+	pixel_ptr color_buff;
 
-	/* open new output file */
+	// 출력할 파일 열기
 	if ((fp = fopen(fileout, "wb")) == NULL)
 	{
 		printf("Unable to open %s for output\n", fileout);
 		exit(1);
 	}
+	// main 함수에서 지정한 scale계수만큼 크기 증가
+	scale_cols = cols * x_scale;
+	scale_rows = rows * y_scale;
 
-	new_cols = cols * x_scale; // 수정된 부분
-	new_rows = rows * y_scale; // 수정된 부분
-
-	/* print out the portable bitmap header */
-	fprintf(fp, "P%d\n%d %d\n255\n", type, new_cols, new_rows);
+	// 비트맵 헤더 작성
+	fprintf(fp, "P%d\n%d %d\n255\n", type, scale_cols, scale_rows);
 
 	if (type == 5) /* PGM file */
-		line = new_cols;
+		line = scale_cols;
 	else /* PPM file */
 	{
-		line = new_cols * 3;
+		line = scale_cols * 3;
 		color_buff = (pixel_ptr)buffer;
 	}
 
 	line_buff = (unsigned char*)malloc(line);
 
-	for (y = 0; y < new_rows; y++)
+	for (y = 0; y < scale_rows; y++)
 	{
-		index = 0;
-		for (x = 0; x < new_cols; x++)
+		index = 0; //row당 cols의 수 체크위한 변수
+		for (x = 0; x < scale_cols; x++)
 		{
+			// 주변 4개의 픽셀
 			float NW, NE, SW, SE;
 			float EWweight, NSweight;
 			float EWtop, EWbottom;
@@ -450,17 +452,21 @@ void biInterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_
 			int X_Source = (int)x / x_scale;
 			int Y_Source = (int)y / y_scale;
 
+			// 4개의 픽셀 선택
 			NW = buffer[Y_Source * cols + X_Source];
 			NE = buffer[Y_Source * cols + X_Source + 1];
 			SW = buffer[(Y_Source + 1) * cols + X_Source];
 			SE = buffer[(Y_Source + 1) * cols + X_Source + 1];
 
+			// 가중치 계산
 			EWweight = ((float)x / x_scale) - (float)X_Source;
 			NSweight = ((float)y / y_scale) - (float)Y_Source;
 
 			EWtop = NW + EWweight * (NE - NW);
 			EWbottom = SW + EWweight * (SE - SW);
 
+
+			// 픽셀에 값 (게산 결과) 할당
 			float pixel = EWtop + NSweight * (EWbottom - EWtop);
 
 			source_index = Y_Source * cols + X_Source;
@@ -474,96 +480,119 @@ void biInterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_
 				line_buff[index++] = color_buff[source_index].b;
 			}
 		}
+		//실질적 파일 작성
 		fwrite(line_buff, 1, line, fp);
 	}
 	fclose(fp);
 }
 
-
-float cubicConvWeight(float x) {
+/* Cubic Convolution Interpolation에 사용할 Kernel 계산함수 */
+float cubicConvKernel(float x) {
 	float absX = abs(x);
 	float absX2 = absX * absX;
 	float absX3 = absX2 * absX;
 
-	float a = -1;
+	float a = -1; // 계수 -1 설정
+	/*
+	a = -2 : 급한 곡선 생성, 이미지를 보다 선명하게 표현
+	a = -1 : 곡선을 부드럽게 만듦
+	a = -0.5 : 중간 정도의 부드러움 
+	-> 이미지에 대해 부드럽게 만드는게 중요할것 같아 -1 계수 선택
+	*/
 
 	if (0 <= absX && absX < 1) {
-		return (((a + 2) * absX3) - ((a + 3) * absX2) + 1);
+		return (float)(((a + 2) * absX3) - ((a + 3) * absX2) + 1);
 	}
 	else if (1 <= absX && absX < 2) {
-		return ((a * absX3) - ((5 * a) * absX2) + ((8 * a) * absX) - (4 * a));
+		return (float)((a * absX3) - ((5 * a) * absX2) + ((8 * a) * absX) - (4 * a));
 	}
 	else if(2 <= absX ) {
-		return 0;
+		return (float)0;
 	}
+
+	return 0;
 }
 
-void CCinterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_scale, int y_scale, int type) {
-	unsigned long x, y;
-	unsigned long index;
-	unsigned long source_index;
-	unsigned char* line_buff;
-	unsigned long line;
-	int new_rows, new_cols;
-	FILE* fp;
+/* Cubic Convolution Interpolation 함수에 */
+void cubicConvInterpolation(image_ptr buffer, char* fileout, int rows, int cols, int x_scale, int y_scale, int type) {
+	unsigned long x, y;			/* 행열을 위한 인덱스 */
+	unsigned long index;		/* buffer에 사용될 인덱스 */
+	unsigned long source_index; /* 이미지 버퍼 소스 픽셀의 인덱스 */
+	unsigned char* line_buff;   /* 라인 버퍼의 output */
+	unsigned long line;			/* 하나의 줄에 존재하는 픽셀수 */
+	int scale_rows, scale_cols;	/* 원본 픽셀의 좌표 */
+	FILE* fp;					/* 출력파일 */
 	pixel_ptr color_buff;
 
+	// 출력할 파일 열기
 	if ((fp = fopen(fileout, "wb")) == NULL) {
 		printf("Unable to open %s for output\n", fileout);
 		exit(1);
 	}
 
-	new_cols = cols * x_scale;
-	new_rows = rows * y_scale;
+	// main 함수에서 지정한 scale계수만큼 크기 증가
+	scale_cols = cols * x_scale;
+	scale_rows = rows * y_scale;
 
-	fprintf(fp, "P%d\n%d %d\n255\n", type, new_cols, new_rows);
+	// 비트맵 헤더 작성
+	fprintf(fp, "P%d\n%d %d\n255\n", type, scale_cols, scale_rows);
 
-	if (type == 5)
-		line = new_cols;
-	else {
-		line = new_cols * 3;
+
+	// 이미지 type에 맞게 line 설정 (pgm or ppm)
+	if (type == 5) // PGM
+		line = scale_cols;
+	else { // PPM
+		line = scale_cols * 3;
 		color_buff = (pixel_ptr)buffer;
 	}
 
 	line_buff = (unsigned char*)malloc(line);
 
-	for (y = 0; y < new_rows; y++) {
-		index = 0;
-		for (x = 0; x < new_cols; x++) {
-			float pixel = 0.0;
-			float weightSum = 0.0;
+	for (y = 0; y < scale_rows; y++) {
+		index = 0; // row당 사용할 변수
+		for (x = 0; x < scale_cols; x++) {
+			// col 당 사용할 변수
+			float pixel = 0.0; // 현재 col의 픽셀 값
+			float weightSum = 0.0; // 가중치 합
 
-			float X_Source = x / (float)x_scale;
-			float Y_Source = y / (float)y_scale;
+			float X_Source = x / (float)x_scale; // 원본 이미지에서의 x 좌표
+			float Y_Source = y / (float)y_scale; // 원본 이미지에서의 y 좌표
 
+			// 소수부분 처리 (int)
 			int X_Source_int = (int)floor(X_Source);
 			int Y_Source_int = (int)floor(Y_Source);
 
-			for (int i = -2; i <= 1; i++) {
-				for (int j = -2; j <= 1; j++) {
+			// 16개의 주변 픽셀 이용하기 위해 -2~1 까지를 두번 (4x4)
+			for (int i = -1; i <= 2; i++) {
+				for (int j = -1; j <= 2; j++) {
+					// current X, Y로 현재 좌표
 					int currX = X_Source_int + j;
 					int currY = Y_Source_int + i;
 
+					// 현재 좌표가 이미지 범위 내에 있는지 확인
 					if (currX >= 0 && currX < cols && currY >= 0 && currY < rows) {
-						float weight = cubicConvWeight(X_Source - currX) * cubicConvWeight(Y_Source - currY);
+						// cubicConvKernel 사용해 가중치 계산
+						float weight = cubicConvKernel(X_Source - currX) * cubicConvKernel(Y_Source - currY);
 						pixel += buffer[currY * cols + currX] * weight;
 						weightSum += weight;
 					}
 				}
 			}
 
-			pixel /= weightSum;
+			//가중치 합만큼 나눠서 평균 pixel 값 할당
+			pixel = pixel / weightSum;
 
 			source_index = Y_Source_int * cols + X_Source_int;
 
-			if (type == 5)
+			if (type == 5) // PGM
 				line_buff[index++] = (unsigned char)pixel;
-			else {
+			else { // PPM
 				line_buff[index++] = color_buff[source_index].r;
 				line_buff[index++] = color_buff[source_index].g;
 				line_buff[index++] = color_buff[source_index].b;
 			}
 		}
+		//실질적 파일의 저장
 		fwrite(line_buff, 1, line, fp);
 	}
 	fclose(fp);

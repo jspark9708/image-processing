@@ -1,0 +1,19 @@
+﻿  List2_1.c
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(43): warning C4013: 'gets'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(60): warning C4013: 'ConvertBMPtoPGM'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(37): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(133): note: 'strcpy' 선언을 참조하십시오.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(38): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h(133): note: 'strcpy' 선언을 참조하십시오.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(31): warning C4101: 'type' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(32): warning C4101: 'y_scale' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(27): warning C4101: 'LUT' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(24): warning C4101: 'rows' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(29): warning C4101: 'number_of_pixels' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(25): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(24): warning C4101: 'cols' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(26): warning C4101: 'bytes_per_pixel' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(32): warning C4101: 'x_scale' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(30): warning C4101: 'temp' :참조되지 않은 지역 변수입니다.
+d:\대학교 파일\4학년 1학기\영상처리\assignment\assignment_5\srsc\list2_1.c(28): warning C4101: 'buffer' :참조되지 않은 지역 변수입니다.
+  output.vcxproj -> D:\대학교 파일\4학년 1학기\영상처리\assignment\Assignment_5\SRSC\Debug\output.exe

@@ -39,9 +39,9 @@ int main(int argc, char *argv[])
 	}
     else
 	{
-	printf("Input name of input file\n");
+	printf("Input 파일의 이름을 입력해주세요: \n");
 	gets(filein);
-	printf("\nInput name of output file\n");
+	printf("\nOutput 파일의 이름을 입력해주세요 : \n");
 	gets(fileout);
 	printf("\n");
 	}
@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
 
     number_of_pixels = bytes_per_pixel * rows * cols;
 
+	//이미지 원하는 만큼 늘릴 계수 (상수)
 	x_scale = 2;
 	y_scale = 2;
 
@@ -63,9 +64,8 @@ int main(int argc, char *argv[])
 
 	//biInterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
 
-	CCinterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
+	cubicConvInterpolation(buffer, fileout, rows, cols, x_scale, y_scale, type);
 
-    //write_pnm(buffer, fileout, rows, cols, type);
     IP_FREE(buffer);
     return 0;
     }
