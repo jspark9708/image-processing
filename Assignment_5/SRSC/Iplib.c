@@ -600,6 +600,7 @@ void cubicConvInterpolation(image_ptr buffer, char* fileout, int rows, int cols,
 	fclose(fp);
 }
 
+
 typedef unsigned short int USHORT;
 typedef unsigned long int  ULONG;
 
@@ -625,12 +626,15 @@ struct BITMAPHEADER {
 struct BITMAPHEADER bmp_header;                // Bitmap 파일의 Header 구조체
 
 
-void ConvertBMPtoPGM(char *filename) {
-	int read_fd; // 파일을 읽고 쓰는데 사용할 Descriptor
+void ConvertBMP(char* filein, char* fileout) {
+	int read_fd;
+	unsigned char pixel;
+	int row, col;
 
-	read_fd = open(filename, O_RDONLY); // bmp파일을 open한다.
+	/* 파일을 오픈하여 offset, width, height 정보를 읽는 부분 */
+	read_fd = open(filein, O_RDONLY);
 	if (read_fd == -1) {
-		printf("Can't open file %s\n", filename);
+		printf("파일을 열수없습니다 : %s\n", filein);
 		exit(1);
 	}
 
@@ -654,44 +658,46 @@ void ConvertBMPtoPGM(char *filename) {
 	close(read_fd);
 
 	// bmpOffset, bmpWidth, bmpHeight 출력
-	printf("bmpOffset: %d\n", bmp_header.bmpOffset);
-	printf("bmpWidth: %d\n", bmp_header.bmpWidth);
-	printf("bmpHeight: %d\n", bmp_header.bmpHeight);
-}eader.bmpOffset), 1, bmpFilePtr);
-	fread(&bmp_header.bmpHeaderSize, sizeof(bmp_header.bmpHeaderSize), 1, bmpFilePtr);
-	fread(&bmp_header.bmpWidth, sizeof(bmp_header.bmpWidth), 1, bmpFilePtr);
-	fread(&bmp_header.bmpHeight, sizeof(bmp_header.bmpHeight), 1, bmpFilePtr);
-	fread(&bmp_header.bmpPlanes, sizeof(bmp_header.bmpPlanes), 1, bmpFilePtr);
-	fread(&bmp_header.bmpBitCount, sizeof(bmp_header.bmpBitCount), 1, bmpFilePtr);
-	fread(&bmp_header.bmpCompression, sizeof(bmp_header.bmpCompression), 1, bmpFilePtr);
-	fread(&bmp_header.bmpBitmapSize, sizeof(bmp_header.bmpBitmapSize), 1, bmpFilePtr);
-	fread(&bmp_header.bmpXPelsPerMeter, sizeof(bmp_header.bmpXPelsPerMeter), 1, bmpFilePtr);
-	fread(&bmp_header.bmpYPelsPerMeter, sizeof(bmp_header.bmpYPelsPerMeter), 1, bmpFilePtr);
-	fread(&bmp_header.bmpColors, sizeof(bmp_header.bmpColors), 1, bmpFilePtr);
-	fread(&bmp_header.bmpClrImportant, sizeof(bmp_header.bmpClrImportant), 1, bmpFilePtr);
+	printf("bmpOffset: %lu\n", bmp_header.bmpOffset);
+	printf("bmpWidth: %lu\n", bmp_header.bmpWidth);
+	printf("bmpHeight: %lu\n", bmp_header.bmpHeight);
 
-	// BMP 파일 데이터 위치로 이동
-	fseek(bmpFilePtr, bmp_header.bmpOffset, SEEK_SET);
-
-	// PGM 파일 헤더 작성
-	fprintf(pgmFilePtr, "P2\n");
-	fprintf(pgmFilePtr, "# Converted from BMP\n");
-	fprintf(pgmFilePtr, "%lu %lu\n", bmp_header.bmpWidth, bmp_header.bmpHeight);
-	fprintf(pgmFilePtr, "255\n");
-
-	// BMP 파일 데이터를 PGM 파일로 변환
-	int row, col;
-	unsigned char pixel;
-	for (row = bmp_header.bmpHeight - 1; row >= 0; row--) {
-		for (col = 0; col < bmp_header.bmpWidth; col++) {
-			fread(&pixel, sizeof(pixel), 1, bmpFilePtr);
-			fprintf(pgmFilePtr, "%u ", pixel);
-		}
-		fprintf(pgmFilePtr, "\n");
+	/* 실질적으로 bmp를 covert 위한 부분 */
+	// bmp 파일 읽기모드
+	FILE* bmpfile = fopen(filein, "rb");
+	if (bmpfile == NULL) {
+		printf("BMP 파일을 열 수 없습니다 : %s\n", filein);
+		exit(1);
+	}
+	// 만들 pgm 파일 쓰기 모드
+	FILE* pgmfile = fopen(fileout, "wb");
+	if (pgmfile == NULL) {
+		printf("PGM 파일을 열 수 없습니다 : %s\n", fileout);
+		exit(1);
 	}
 
-	fclose(bmpFilePtr);
-	fclose(pgmFilePtr);
 
-	printf("BMP to PGM conversion completed.\n");
+	// bmp 파일의 실질적 데이터 위치로 이동
+	fseek(bmpfile, bmp_header.bmpOffset, SEEK_SET);
+
+	// pgm 헤더 작성
+	fprintf(pgmfile, "P2\n"); // pgm P2
+	//주석 부분 생략
+	fprintf(pgmfile, "%lu %lu\n", bmp_header.bmpWidth, bmp_header.bmpHeight);
+	fprintf(pgmfile, "255\n");
+
+	/* bmp데이터를 pgm 데이터로 변환 */
+	for (row = bmp_header.bmpHeight - 1; row >= 0; row--) {
+		for (col = 0; col < bmp_header.bmpWidth; col++) {
+			fseek(bmpfile, bmp_header.bmpOffset + (row * bmp_header.bmpWidth + col), SEEK_SET);
+			// (row * bmp_header.bmpWidth + col) 로 현재 픽셀의 위치를 계산
+			fread(&pixel, sizeof(pixel), 1, bmpfile);
+			fprintf(pgmfile, "%u ", pixel);
+		}
+		//행의 끝 개행 문자 처리
+		fprintf(pgmfile, "\n");
+	}
+
+	fclose(bmpfile);
+	fclose(pgmfile);
 }

@@ -31,8 +31,11 @@ struct BITMAPHEADER {
 
 struct BITMAPHEADER bmp_header;                // Bitmap 파일의 Header 구조체
 
-void ReadBitmapHeader(char *filename) {
+void ReadBitmapHeader(char *filein, char *fileout) {
 	int read_fd; // 파일을 읽고 쓰는데 사용할 Descriptor
+	int bmp_fd, pgm_fd;
+	unsigned char *bmp_data, *pgm_data;
+	unsigned long int i;
 
 	read_fd = open(filename, O_RDONLY); // bmp파일을 open한다.
 	if (read_fd == -1) {
@@ -63,5 +66,40 @@ void ReadBitmapHeader(char *filename) {
 	printf("bmpOffset: %d\n", bmp_header.bmpOffset);
 	printf("bmpWidth: %d\n", bmp_header.bmpWidth);
 	printf("bmpHeight: %d\n", bmp_header.bmpHeight);
-}
 
+	// BMP 파일 열기
+	bmp_fd = open(filein, O_RDONLY);
+	if (bmp_fd == -1) {
+		printf("Can't open BMP file %s\n", filein);
+		exit(1);
+	}
+
+	// PGM 파일 열기
+	pgm_fd = open(fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (pgm_fd == -1) {
+		printf("Can't create PGM file %s\n", fileout);
+		exit(1);
+	}
+
+	// BMP 데이터 읽기
+	bmp_data = (unsigned char *)malloc(bmp_header.bmpSize);
+	lseek(bmp_fd, 0, SEEK_SET);
+	read(bmp_fd, bmp_data, bmp_header.bmpSize);
+
+	// PGM 데이터 쓰기
+	pgm_data = (unsigned char *)malloc(bmp_header.bmpWidth * bmp_header.bmpHeight);
+	for (i = 0; i < bmp_header.bmpWidth * bmp_header.bmpHeight; i++) {
+		unsigned char r = bmp_data[bmp_header.bmpOffset + i * 3];
+		unsigned char g = bmp_data[bmp_header.bmpOffset + i * 3 + 1];
+		unsigned char b = bmp_data[bmp_header.bmpOffset + i * 3 + 2];
+		unsigned char gray = (unsigned char)(0.3 * r + 0.59 * g + 0.11 * b);
+		pgm_data[i] = gray;
+	}
+	write(pgm_fd, pgm_data, bmp_header.bmpWidth * bmp_header.bmpHeight);
+
+	close(bmp_fd);
+	close(pgm_fd);
+
+	free(bmp_data);
+	free(pgm_data);
+}

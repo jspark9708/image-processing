@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	printf("\n");
 	}
 
-	ConvertBMPtoPGM(filein, fileout);
+	ConvertBMP(filein, fileout);
 
     return 0;
     }
